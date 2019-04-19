@@ -7,6 +7,7 @@ public class Paozinho extends Produto{
     private String sabor;
 
     public Paozinho() {
+        
     }
 
     public Paozinho(double preco,String validade,String especificacao,String sabor) {

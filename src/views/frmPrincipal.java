@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -14,15 +15,22 @@ import javax.swing.JPanel;
  * @author Eduardo C.
  */
 public class frmPrincipal extends javax.swing.JFrame {
+    private ArrayList<Produto> produtos;
     private int xMouse;
     private int yMouse;
     public frmPrincipal() {
         initComponents();
+        produtos = new ArrayList<>();
         pnlCadastrar.hide();
         pnlPaozinho.hide();
         pnlDoce.hide();
         pnlFrio.hide();
         pnlPrecos.hide();
+        pnlhide.hide();
+        //TabelaPrecos tbl = new TabelaPrecos();
+        //attTable(tbl.getNomes(), jList1);
+        //attTable(tbl.getPrecos(), jList2);
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -41,7 +49,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         txtValorUnitario = new javax.swing.JTextField();
         txtValorTotal = new javax.swing.JTextField();
         btnNovoProduto = new javax.swing.JLabel();
-        btnFinalizarPedido = new javax.swing.JLabel();
         cboxSaborPaozinho = new javax.swing.JComboBox<>();
         pnlDoce = new javax.swing.JPanel();
         txtValorUnitario1 = new javax.swing.JTextField();
@@ -55,6 +62,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnNovoProduto2 = new javax.swing.JLabel();
         btnFinalizarPedido2 = new javax.swing.JLabel();
         cboxTipoDoce1 = new javax.swing.JComboBox<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList<>();
+        btnFinalizarPedido = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         pnlPrecos = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -88,6 +99,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         txtValor10 = new javax.swing.JTextField();
         btnEditar10 = new javax.swing.JLabel();
+        pnlhide = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -176,13 +192,6 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnFinalizarPedido.setBackground(new java.awt.Color(255, 153, 0));
-        btnFinalizarPedido.setForeground(new java.awt.Color(75, 75, 75));
-        btnFinalizarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFinalizarPedido.setText("FINALIZAR PEDIDO");
-        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFinalizarPedido.setOpaque(true);
-
         cboxSaborPaozinho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "REQUEIJÃO", "CHEDDAR", "PATÊ DE ATUM" }));
         cboxSaborPaozinho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,14 +206,11 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(pnlPaozinhoLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlPaozinhoLayout.createSequentialGroup()
-                        .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                        .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                     .addComponent(txtValorUnitario)
-                    .addComponent(txtValorTotal)
-                    .addComponent(cboxSaborPaozinho, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(cboxSaborPaozinho, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovoProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         pnlPaozinhoLayout.setVerticalGroup(
             pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,11 +221,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                .addGroup(pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addGap(50, 50, 50)
+                .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pnlCadastrar.add(pnlPaozinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 177, 390, 290));
@@ -357,6 +361,23 @@ public class frmPrincipal extends javax.swing.JFrame {
         );
 
         pnlCadastrar.add(pnlFrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 177, 390, -1));
+
+        jScrollPane3.setViewportView(jList3);
+
+        pnlCadastrar.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 180, 130, 220));
+
+        btnFinalizarPedido.setBackground(new java.awt.Color(255, 153, 0));
+        btnFinalizarPedido.setForeground(new java.awt.Color(75, 75, 75));
+        btnFinalizarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnFinalizarPedido.setText("FINALIZAR PEDIDO");
+        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFinalizarPedido.setOpaque(true);
+        pnlCadastrar.add(btnFinalizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 410, 130, 27));
+
+        jLabel8.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel8.setText("CARRINHO:");
+        pnlCadastrar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, -1, -1));
 
         jPanel2.add(pnlCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 700));
 
@@ -743,27 +764,75 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
+        jList1.setBackground(new java.awt.Color(85, 85, 85));
+        jList1.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        jList1.setForeground(new java.awt.Color(255, 153, 0));
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1.setRequestFocusEnabled(false);
+        jScrollPane1.setViewportView(jList1);
+
+        jList2.setBackground(new java.awt.Color(85, 85, 85));
+        jList2.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        jList2.setForeground(new java.awt.Color(255, 153, 0));
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList2);
+
+        javax.swing.GroupLayout pnlhideLayout = new javax.swing.GroupLayout(pnlhide);
+        pnlhide.setLayout(pnlhideLayout);
+        pnlhideLayout.setHorizontalGroup(
+            pnlhideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlhideLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        pnlhideLayout.setVerticalGroup(
+            pnlhideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlhideLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlhideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout pnlPrecosLayout = new javax.swing.GroupLayout(pnlPrecos);
         pnlPrecos.setLayout(pnlPrecosLayout);
         pnlPrecosLayout.setHorizontalGroup(
             pnlPrecosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrecosLayout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(261, 261, 261))
             .addGroup(pnlPrecosLayout.createSequentialGroup()
-                .addGap(388, 388, 388)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlPrecosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPrecosLayout.createSequentialGroup()
+                        .addGap(392, 392, 392)
+                        .addComponent(jLabel6))
+                    .addGroup(pnlPrecosLayout.createSequentialGroup()
+                        .addGap(247, 247, 247)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlPrecosLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(pnlhide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(46, 46, 46))
         );
         pnlPrecosLayout.setVerticalGroup(
             pnlPrecosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPrecosLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jLabel6)
-                .addGap(70, 70, 70)
+                .addGap(64, 64, 64)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(pnlhide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         jPanel2.add(pnlPrecos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 700));
@@ -897,26 +966,33 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditar1MouseClicked
 
     private void btnNovoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProdutoMouseClicked
-        ArrayList<Produto> produtos = new ArrayList<>();
         int indexProduto = cboxTipoAlimento.getSelectedIndex();
         GregorianCalendar calendario = new GregorianCalendar(Locale.US);
         int validade = calendario.getTime().getMonth()+7;
-        switch(indexProduto){
-            case 1: // frio
+        //switch(indexProduto){
+            //case 1: // frio
                 
-                break;
-            case 2: //paozinho
+                //break;
+            //case 2: //paozinho
                 double valor = Double.parseDouble(txtValor1.getText().split(" ")[1]);
-                Paozinho p = new Paozinho(valor,""+validade,"",cboxSaborPaozinho.getSelectedItem().toString());
-                System.out.println(p.getPreco());
-                System.out.println(p.getEspecificacao());
-                System.out.println(p.getSabor());
-                System.out.println(p.getValidade());
-                break;
-            case 3: //doce
+                try {
+                    Paozinho p = new Paozinho(valor,""+validade,"",cboxSaborPaozinho.getSelectedItem().toString());
+                    produtos.add(p);
+                    System.out.println(p.getPreco());
+                    System.out.println(p.getEspecificacao());
+                    System.out.println(p.getSabor());
+                    System.out.println(p.getValidade());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Operação inválida.");
+                }
+                cboxTipoAlimento.setSelectedIndex(0);
+                //break;
+            //case 3: //doce
                 
-                break;
-        }
+                //break;
+        //}
+        System.out.println(produtos.size());
+        attCart(produtos, jList3);
         limparCampos();
     }//GEN-LAST:event_btnNovoProdutoMouseClicked
 
@@ -1015,12 +1091,13 @@ public class frmPrincipal extends javax.swing.JFrame {
             case 0://NADA SELECIONADO
                 break;
             case 1: // requeijao
-                txtValorUnitario.setText(txtValor8.getText());
-                break;
-            case 2: //cheddar
                 txtValorUnitario.setText(txtValor1.getText());
                 break;
+            case 2: //cheddar
+                txtValorUnitario.setText(txtValor2.getText());
+                break;
             case 3: //pate de atum
+                txtValorUnitario.setText(txtValor3.getText());
                 break;
         }
     }//GEN-LAST:event_cboxSaborPaozinhoActionPerformed
@@ -1094,6 +1171,26 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
         pnlPaozinho.hide();
         pnlDoce.hide();
+        pnlFrio.hide();
+    }
+    
+    public void attTable(String[] novaLista, JList list){
+        list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = novaLista;
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+    }
+    public void attCart(ArrayList<Produto> lista, JList list){
+        String[] novaLista = new String[lista.size()];
+        for (int i = 0; i < lista.size(); i++) {
+            novaLista[i] = lista.get(i).getClass().getSimpleName();
+        }
+        list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = novaLista;
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1136,16 +1233,24 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel pnlCadastrar;
     private javax.swing.JPanel pnlControlBar;
     private javax.swing.JPanel pnlDoce;
     private javax.swing.JPanel pnlFrio;
     private javax.swing.JPanel pnlPaozinho;
     private javax.swing.JPanel pnlPrecos;
+    private javax.swing.JPanel pnlhide;
     private javax.swing.JTextField txtValor1;
     private javax.swing.JTextField txtValor10;
     private javax.swing.JTextField txtValor2;
