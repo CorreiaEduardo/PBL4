@@ -1,0 +1,33 @@
+1 - Você foi convidado a desenvolver um sistema de vendas de mercadorias de uma padaria. A
+padaria vende três tipos de produtos: 
+Frios, Pãezinhos e Doces. - OK
+Esses elementos possuem:
+preço, validade, especificação e tempo para entrega (medido em minutos). - OK
+
+É importante para o sistema também informar para o cliente o sabor do pãozinho e 
+tipo do doce (fino, de festa, gourmet, ornamental, etc). - OK
+
+O cliente quando for realizar o pedido terá a possibilidade de inserir vários produtos. - OK
+A padaria recebe encomendas diariamente, mas a depender do dia da semana o tempo de produção
+do item pode ser mais devagar, de acordo com as estatísticas, previamente calculadas.
+
+ Quando é final de semana (sábado ou domingo) o tempo para entrega de doces ficam 20%
+mais lento que o normal; - OK
+
+ No fim de semana também sobe as compras dos pãezinhos e fica 15% mais lento que o
+normal - OK
+
+ Já os frios, apenas no domingo aumentam sendo 10% a mais o tempo de espera. - OK
+
+O sistema precisa saber:
+ Quanto foi o total de compra (a partir dos preços de cada elemento do pedido);
+
+ Quantos itens de cada tipo existe (ex: 20 pãezinhos e 30 doces);
+
+ Em quanto tempo o pedido total será entregue. (somar os tempos de espera de cada
+produto).
+
+Sabendo que o tempo padrão de entrega de cada produto está especificado na tabela abaixo:
+
+            Pãozinho | Doces | Frios
+Tempo (min)   2min     5min    6min
