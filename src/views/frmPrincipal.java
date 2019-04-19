@@ -3,6 +3,9 @@ package views;
 import Logics.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -15,12 +18,14 @@ import javax.swing.JPanel;
  * @author Eduardo C.
  */
 public class frmPrincipal extends javax.swing.JFrame {
-    private ArrayList<Produto> produtos;
+    private ArrayList<Pedido> pedidos;
+    private Pedido novoPedido;
     private int xMouse;
     private int yMouse;
     public frmPrincipal() {
         initComponents();
-        produtos = new ArrayList<>();
+        novoPedido = new Pedido();
+        pedidos = new ArrayList<>();
         pnlCadastrar.hide();
         pnlPaozinho.hide();
         pnlDoce.hide();
@@ -47,25 +52,22 @@ public class frmPrincipal extends javax.swing.JFrame {
         cboxTipoAlimento = new javax.swing.JComboBox<>();
         pnlPaozinho = new javax.swing.JPanel();
         txtValorUnitario = new javax.swing.JTextField();
-        txtValorTotal = new javax.swing.JTextField();
         btnNovoProduto = new javax.swing.JLabel();
         cboxSaborPaozinho = new javax.swing.JComboBox<>();
         pnlDoce = new javax.swing.JPanel();
         txtValorUnitario1 = new javax.swing.JTextField();
-        txtValorTotal1 = new javax.swing.JTextField();
         btnNovoProduto1 = new javax.swing.JLabel();
-        btnFinalizarPedido1 = new javax.swing.JLabel();
         cboxTipoDoce = new javax.swing.JComboBox<>();
         pnlFrio = new javax.swing.JPanel();
         txtValorUnitario2 = new javax.swing.JTextField();
-        txtValorTotal2 = new javax.swing.JTextField();
         btnNovoProduto2 = new javax.swing.JLabel();
-        btnFinalizarPedido2 = new javax.swing.JLabel();
-        cboxTipoDoce1 = new javax.swing.JComboBox<>();
+        cboxTipoFrio = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList3 = new javax.swing.JList<>();
-        btnFinalizarPedido = new javax.swing.JLabel();
+        btnCancelarPedido = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        txtValorTotal = new javax.swing.JTextField();
+        btnFinalizarPedido3 = new javax.swing.JLabel();
         pnlPrecos = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -104,10 +106,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
+        pnlVisualizar = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList4 = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        btnNovaEncomenda = new javax.swing.JLabel();
+        btnViewPreco = new javax.swing.JLabel();
         btnNovaEncomenda2 = new javax.swing.JLabel();
         btnNovaEncomenda1 = new javax.swing.JLabel();
 
@@ -166,7 +172,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 cboxTipoAlimentoActionPerformed(evt);
             }
         });
-        pnlCadastrar.add(cboxTipoAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 133, 256, -1));
+        pnlCadastrar.add(cboxTipoAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 256, -1));
 
         pnlPaozinho.setBackground(new java.awt.Color(85, 85, 85));
 
@@ -175,15 +181,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         txtValorUnitario.setText("VALOR UNITÁRIO");
         txtValorUnitario.setBorder(null);
 
-        txtValorTotal.setEditable(false);
-        txtValorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtValorTotal.setText("VALOR TOTAL DA COMPRA");
-        txtValorTotal.setBorder(null);
-
         btnNovoProduto.setBackground(new java.awt.Color(255, 153, 0));
         btnNovoProduto.setForeground(new java.awt.Color(75, 75, 75));
         btnNovoProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnNovoProduto.setText("NOVO PRODUTO");
+        btnNovoProduto.setText("ADICIONAR AO CARRINHO");
         btnNovoProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovoProduto.setOpaque(true);
         btnNovoProduto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -204,13 +205,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         pnlPaozinhoLayout.setHorizontalGroup(
             pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPaozinhoLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
-                    .addComponent(txtValorUnitario)
-                    .addComponent(cboxSaborPaozinho, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNovoProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPaozinhoLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(cboxSaborPaozinho, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlPaozinhoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         pnlPaozinhoLayout.setVerticalGroup(
             pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,13 +224,11 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
                 .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
-        pnlCadastrar.add(pnlPaozinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 177, 390, 290));
+        pnlCadastrar.add(pnlPaozinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 390, 290));
 
         pnlDoce.setBackground(new java.awt.Color(85, 85, 85));
 
@@ -235,15 +237,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         txtValorUnitario1.setText("VALOR UNITÁRIO");
         txtValorUnitario1.setBorder(null);
 
-        txtValorTotal1.setEditable(false);
-        txtValorTotal1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtValorTotal1.setText("VALOR TOTAL DA COMPRA");
-        txtValorTotal1.setBorder(null);
-
         btnNovoProduto1.setBackground(new java.awt.Color(255, 153, 0));
         btnNovoProduto1.setForeground(new java.awt.Color(75, 75, 75));
         btnNovoProduto1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnNovoProduto1.setText("NOVO PRODUTO");
+        btnNovoProduto1.setText("ADICIONAR AO CARRINHO");
         btnNovoProduto1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovoProduto1.setOpaque(true);
         btnNovoProduto1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -252,14 +249,12 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnFinalizarPedido1.setBackground(new java.awt.Color(255, 153, 0));
-        btnFinalizarPedido1.setForeground(new java.awt.Color(75, 75, 75));
-        btnFinalizarPedido1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFinalizarPedido1.setText("FINALIZAR PEDIDO");
-        btnFinalizarPedido1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFinalizarPedido1.setOpaque(true);
-
-        cboxTipoDoce.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "FINO", "DE FESTA", "ORNAMENTAL" }));
+        cboxTipoDoce.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "FINO", "DE FESTA", "GOURMET", "ORNAMENTAL" }));
+        cboxTipoDoce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxTipoDoceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlDoceLayout = new javax.swing.GroupLayout(pnlDoce);
         pnlDoce.setLayout(pnlDoceLayout);
@@ -268,13 +263,9 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(pnlDoceLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(pnlDoceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlDoceLayout.createSequentialGroup()
-                        .addComponent(btnNovoProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                        .addComponent(btnFinalizarPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtValorUnitario1)
-                    .addComponent(txtValorTotal1)
-                    .addComponent(cboxTipoDoce, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboxTipoDoce, 0, 333, Short.MAX_VALUE)
+                    .addComponent(btnNovoProduto1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         pnlDoceLayout.setVerticalGroup(
@@ -285,15 +276,11 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtValorUnitario1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtValorTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                .addGroup(pnlDoceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNovoProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFinalizarPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addComponent(btnNovoProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
-        pnlCadastrar.add(pnlDoce, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 177, 390, -1));
+        pnlCadastrar.add(pnlDoce, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 390, -1));
 
         pnlFrio.setBackground(new java.awt.Color(85, 85, 85));
 
@@ -302,15 +289,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         txtValorUnitario2.setText("VALOR UNITÁRIO");
         txtValorUnitario2.setBorder(null);
 
-        txtValorTotal2.setEditable(false);
-        txtValorTotal2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtValorTotal2.setText("VALOR TOTAL DA COMPRA");
-        txtValorTotal2.setBorder(null);
-
         btnNovoProduto2.setBackground(new java.awt.Color(255, 153, 0));
         btnNovoProduto2.setForeground(new java.awt.Color(75, 75, 75));
         btnNovoProduto2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnNovoProduto2.setText("NOVO PRODUTO");
+        btnNovoProduto2.setText("ADICIONAR AO CARRINHO");
         btnNovoProduto2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovoProduto2.setOpaque(true);
         btnNovoProduto2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -319,14 +301,12 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnFinalizarPedido2.setBackground(new java.awt.Color(255, 153, 0));
-        btnFinalizarPedido2.setForeground(new java.awt.Color(75, 75, 75));
-        btnFinalizarPedido2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFinalizarPedido2.setText("FINALIZAR PEDIDO");
-        btnFinalizarPedido2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFinalizarPedido2.setOpaque(true);
-
-        cboxTipoDoce1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "COXINHA", "KIBE", "PASTELZINHO" }));
+        cboxTipoFrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "COXINHA", "KIBE", "PASTELZINHO" }));
+        cboxTipoFrio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxTipoFrioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFrioLayout = new javax.swing.GroupLayout(pnlFrio);
         pnlFrio.setLayout(pnlFrioLayout);
@@ -335,49 +315,65 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(pnlFrioLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlFrioLayout.createSequentialGroup()
-                        .addComponent(btnNovoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                        .addComponent(btnFinalizarPedido2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtValorUnitario2)
-                    .addComponent(txtValorTotal2)
-                    .addComponent(cboxTipoDoce1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboxTipoFrio, 0, 333, Short.MAX_VALUE)
+                    .addComponent(btnNovoProduto2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         pnlFrioLayout.setVerticalGroup(
             pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFrioLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(cboxTipoDoce1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboxTipoFrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtValorUnitario2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtValorTotal2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                .addGroup(pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNovoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFinalizarPedido2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addComponent(btnNovoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
-        pnlCadastrar.add(pnlFrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 177, 390, -1));
+        pnlCadastrar.add(pnlFrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 390, -1));
 
         jScrollPane3.setViewportView(jList3);
 
-        pnlCadastrar.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 180, 130, 220));
+        pnlCadastrar.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 220, 130, 220));
 
-        btnFinalizarPedido.setBackground(new java.awt.Color(255, 153, 0));
-        btnFinalizarPedido.setForeground(new java.awt.Color(75, 75, 75));
-        btnFinalizarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFinalizarPedido.setText("FINALIZAR PEDIDO");
-        btnFinalizarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFinalizarPedido.setOpaque(true);
-        pnlCadastrar.add(btnFinalizarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 410, 130, 27));
+        btnCancelarPedido.setBackground(new java.awt.Color(255, 153, 0));
+        btnCancelarPedido.setForeground(new java.awt.Color(75, 75, 75));
+        btnCancelarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCancelarPedido.setText("CANCELAR PEDIDO");
+        btnCancelarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelarPedido.setOpaque(true);
+        btnCancelarPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarPedidoMouseClicked(evt);
+            }
+        });
+        pnlCadastrar.add(btnCancelarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 280, 120, 27));
 
         jLabel8.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 153, 0));
         jLabel8.setText("CARRINHO:");
-        pnlCadastrar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, -1, -1));
+        pnlCadastrar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, -1, -1));
+
+        txtValorTotal.setEditable(false);
+        txtValorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtValorTotal.setText("VALOR TOTAL DA COMPRA");
+        txtValorTotal.setBorder(null);
+        pnlCadastrar.add(txtValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 230, 270, 28));
+
+        btnFinalizarPedido3.setBackground(new java.awt.Color(255, 153, 0));
+        btnFinalizarPedido3.setForeground(new java.awt.Color(75, 75, 75));
+        btnFinalizarPedido3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnFinalizarPedido3.setText("FINALIZAR PEDIDO");
+        btnFinalizarPedido3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFinalizarPedido3.setOpaque(true);
+        btnFinalizarPedido3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFinalizarPedido3MouseClicked(evt);
+            }
+        });
+        pnlCadastrar.add(btnFinalizarPedido3, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 280, 120, 27));
 
         jPanel2.add(pnlCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 700));
 
@@ -837,6 +833,44 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jPanel2.add(pnlPrecos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 700));
 
+        pnlVisualizar.setBackground(new java.awt.Color(75, 75, 75));
+
+        jLabel9.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel9.setText("ENCOMENDAS ABERTAS");
+
+        jList4.setBackground(new java.awt.Color(85, 85, 85));
+        jList4.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        jList4.setForeground(new java.awt.Color(255, 153, 0));
+        jList4.setRequestFocusEnabled(false);
+        jScrollPane4.setViewportView(jList4);
+
+        javax.swing.GroupLayout pnlVisualizarLayout = new javax.swing.GroupLayout(pnlVisualizar);
+        pnlVisualizar.setLayout(pnlVisualizarLayout);
+        pnlVisualizarLayout.setHorizontalGroup(
+            pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                .addContainerGap(85, Short.MAX_VALUE)
+                .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVisualizarLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVisualizarLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(318, 318, 318))))
+        );
+        pnlVisualizarLayout.setVerticalGroup(
+            pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(pnlVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 700));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 1010, 700));
 
         jPanel3.setBackground(new java.awt.Color(255, 153, 0));
@@ -850,19 +884,19 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel4.setText("LOGOUTICON");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 74, -1, -1));
 
-        btnNovaEncomenda.setBackground(new java.awt.Color(45, 45, 45));
-        btnNovaEncomenda.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        btnNovaEncomenda.setForeground(new java.awt.Color(255, 153, 0));
-        btnNovaEncomenda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnNovaEncomenda.setText("VISUALIZAR TBL DE PREÇOS");
-        btnNovaEncomenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNovaEncomenda.setOpaque(true);
-        btnNovaEncomenda.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnViewPreco.setBackground(new java.awt.Color(45, 45, 45));
+        btnViewPreco.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        btnViewPreco.setForeground(new java.awt.Color(255, 153, 0));
+        btnViewPreco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnViewPreco.setText("VISUALIZAR TBL DE PREÇOS");
+        btnViewPreco.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnViewPreco.setOpaque(true);
+        btnViewPreco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNovaEncomendaMouseClicked(evt);
+                btnViewPrecoMouseClicked(evt);
             }
         });
-        jPanel3.add(btnNovaEncomenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 360, 50));
+        jPanel3.add(btnViewPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 360, 50));
 
         btnNovaEncomenda2.setBackground(new java.awt.Color(45, 45, 45));
         btnNovaEncomenda2.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -885,6 +919,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnNovaEncomenda1.setText("VISUALIZAR ENCOMENDAS");
         btnNovaEncomenda1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovaEncomenda1.setOpaque(true);
+        btnNovaEncomenda1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNovaEncomenda1MouseClicked(evt);
+            }
+        });
         jPanel3.add(btnNovaEncomenda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 360, 50));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 730));
@@ -925,6 +964,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnNovaEncomenda2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovaEncomenda2MouseClicked
           pnlCadastrar.show();
           pnlPrecos.hide();
+          pnlVisualizar.hide();
           atualizarCampos();
         
     }//GEN-LAST:event_btnNovaEncomenda2MouseClicked
@@ -949,10 +989,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxTipoAlimentoActionPerformed
 
-    private void btnNovaEncomendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovaEncomendaMouseClicked
+    private void btnViewPrecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewPrecoMouseClicked
         pnlCadastrar.hide();
         pnlPrecos.show();
-    }//GEN-LAST:event_btnNovaEncomendaMouseClicked
+        pnlVisualizar.hide();
+        atualizarCampos();
+    }//GEN-LAST:event_btnViewPrecoMouseClicked
 
     private void btnEditar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar1MouseClicked
         // EDITAR PAOZINHO:
@@ -969,39 +1011,39 @@ public class frmPrincipal extends javax.swing.JFrame {
         int indexProduto = cboxTipoAlimento.getSelectedIndex();
         GregorianCalendar calendario = new GregorianCalendar(Locale.US);
         int validade = calendario.getTime().getMonth()+7;
-        //switch(indexProduto){
-            //case 1: // frio
-                
-                //break;
-            //case 2: //paozinho
-                double valor = Double.parseDouble(txtValor1.getText().split(" ")[1]);
-                try {
-                    Paozinho p = new Paozinho(valor,""+validade,"",cboxSaborPaozinho.getSelectedItem().toString());
-                    produtos.add(p);
-                    System.out.println(p.getPreco());
-                    System.out.println(p.getEspecificacao());
-                    System.out.println(p.getSabor());
-                    System.out.println(p.getValidade());
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Operação inválida.");
-                }
-                cboxTipoAlimento.setSelectedIndex(0);
-                //break;
-            //case 3: //doce
-                
-                //break;
-        //}
-        System.out.println(produtos.size());
-        attCart(produtos, jList3);
+        double valor = Double.parseDouble(txtValorUnitario.getText().split(" ")[1]);
+        Paozinho p = new Paozinho(valor,""+validade,"",cboxSaborPaozinho.getSelectedItem().toString());
+        novoPedido.addProduto(p);
+        cboxTipoAlimento.setSelectedIndex(0);
+        atualizarCampos();
         limparCampos();
+        attCart(novoPedido.getProdutos(), jList3);
     }//GEN-LAST:event_btnNovoProdutoMouseClicked
 
     private void btnNovoProduto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto1MouseClicked
-        // TODO add your handling code here:
+        int indexProduto = cboxTipoAlimento.getSelectedIndex();
+        GregorianCalendar calendario = new GregorianCalendar(Locale.US);
+        int validade = calendario.getTime().getMonth()+7;
+        double valor = Double.parseDouble(txtValorUnitario1.getText().split(" ")[1]);
+        Doce d = new Doce(valor,""+validade,"",cboxTipoDoce.getSelectedItem().toString());
+        novoPedido.addProduto(d);
+        cboxTipoAlimento.setSelectedIndex(0);
+        atualizarCampos();
+        limparCampos();
+        attCart(novoPedido.getProdutos(), jList3);
     }//GEN-LAST:event_btnNovoProduto1MouseClicked
 
     private void btnNovoProduto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto2MouseClicked
-        // TODO add your handling code here:
+        int indexProduto = cboxTipoFrio.getSelectedIndex();
+        GregorianCalendar calendario = new GregorianCalendar(Locale.US);
+        int validade = calendario.getTime().getMonth()+7;
+        double valor = Double.parseDouble(txtValorUnitario2.getText().split(" ")[1]);
+        Frio f = new Frio(valor,""+validade,"",cboxTipoFrio.getSelectedItem().toString());
+        novoPedido.addProduto(f);
+        cboxTipoAlimento.setSelectedIndex(0);
+        atualizarCampos();
+        limparCampos();
+        attCart(novoPedido.getProdutos(), jList3);
     }//GEN-LAST:event_btnNovoProduto2MouseClicked
 
     private void btnEditar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar2MouseClicked
@@ -1089,6 +1131,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         int saborPaozinho = cboxSaborPaozinho.getSelectedIndex();
         switch(saborPaozinho){
             case 0://NADA SELECIONADO
+                txtValorUnitario.setText("VALOR UNITÁRIO");
                 break;
             case 1: // requeijao
                 txtValorUnitario.setText(txtValor1.getText());
@@ -1101,6 +1144,68 @@ public class frmPrincipal extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_cboxSaborPaozinhoActionPerformed
+
+    private void cboxTipoDoceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoDoceActionPerformed
+        int tipoDoce = cboxTipoDoce.getSelectedIndex();
+        switch(tipoDoce){
+            case 0://NADA SELECIONADO
+                txtValorUnitario1.setText("VALOR UNITÁRIO");
+                break;
+            case 1: // requeijao
+                txtValorUnitario1.setText(txtValor4.getText());
+                break;
+            case 2: //cheddar
+                txtValorUnitario1.setText(txtValor5.getText());
+                break;
+            case 3: //pate de atum
+                txtValorUnitario1.setText(txtValor6.getText());
+                break;
+            case 4:
+                txtValorUnitario1.setText(txtValor7.getText());
+                break;
+        }
+    }//GEN-LAST:event_cboxTipoDoceActionPerformed
+
+    private void cboxTipoFrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoFrioActionPerformed
+        int tipoFrio = cboxTipoFrio.getSelectedIndex();
+        switch(tipoFrio){
+            case 0://NADA SELECIONADO
+                txtValorUnitario2.setText("VALOR UNITÁRIO");
+                break;
+            case 1: // requeijao
+                txtValorUnitario2.setText(txtValor8.getText());
+                break;
+            case 2: //cheddar
+                txtValorUnitario2.setText(txtValor9.getText());
+                break;
+            case 3: //pate de atum
+                txtValorUnitario2.setText(txtValor10.getText());
+                break;
+        }
+    }//GEN-LAST:event_cboxTipoFrioActionPerformed
+
+    private void btnCancelarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarPedidoMouseClicked
+        novoPedido = new Pedido();
+        atualizarCampos();
+        limparCampos();
+        attCart(novoPedido.getProdutos(), jList3);
+    }//GEN-LAST:event_btnCancelarPedidoMouseClicked
+
+    private void btnFinalizarPedido3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedido3MouseClicked
+        pedidos.add(novoPedido);
+        btnCancelarPedidoMouseClicked(evt);
+        for (Pedido pedido : pedidos) {
+            System.out.println(pedido.calcularTotalCompra());
+        }
+        
+    }//GEN-LAST:event_btnFinalizarPedido3MouseClicked
+
+    private void btnNovaEncomenda1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovaEncomenda1MouseClicked
+        pnlCadastrar.hide();
+        pnlPrecos.hide();
+        pnlVisualizar.show();
+        attEncomendasAbertas(pedidos,jList4);
+    }//GEN-LAST:event_btnNovaEncomenda1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1144,31 +1249,65 @@ public class frmPrincipal extends javax.swing.JFrame {
             case 0://NADA SELECIONADO
                 break;
             case 1: // frio
-                txtValorUnitario.setText(txtValor8.getText());
+                int tipoFrio = cboxTipoFrio.getSelectedIndex();
+                switch(tipoFrio){
+                    case 0://NADA SELECIONADO
+                        txtValorUnitario2.setText("VALOR UNITÁRIO");
+                        break;
+                    case 1: // requeijao
+                        txtValorUnitario2.setText(txtValor8.getText());
+                        break;
+                    case 2: //cheddar
+                        txtValorUnitario2.setText(txtValor9.getText());
+                        break;
+                    case 3: //pate de atum
+                        txtValorUnitario2.setText(txtValor10.getText());
+                        break;
+                }
                 break;
             case 2: //paozinho
-                txtValorUnitario.setText(txtValor1.getText());
+                int saborPaozinho = cboxSaborPaozinho.getSelectedIndex();
+                switch(saborPaozinho){
+                    case 0://NADA SELECIONADO
+                        txtValorUnitario.setText("VALOR UNITÁRIO");
+                        break;
+                    case 1: // requeijao
+                        txtValorUnitario.setText(txtValor1.getText());
+                        break;
+                    case 2: //cheddar
+                        txtValorUnitario.setText(txtValor2.getText());
+                        break;
+                    case 3: //pate de atum
+                        txtValorUnitario.setText(txtValor3.getText());
+                        break;
+                }
                 break;
             case 3: //doce
+                int tipoDoce = cboxTipoDoce.getSelectedIndex();
+                switch(tipoDoce){
+                    case 0://NADA SELECIONADO
+                        txtValorUnitario1.setText("VALOR UNITÁRIO");
+                        break;
+                    case 1: // requeijao
+                        txtValorUnitario1.setText(txtValor4.getText());
+                        break;
+                    case 2: //cheddar
+                        txtValorUnitario1.setText(txtValor5.getText());
+                        break;
+                    case 3: //pate de atum
+                        txtValorUnitario1.setText(txtValor6.getText());
+                        break;
+                    case 4:
+                        txtValorUnitario1.setText(txtValor7.getText());
+                        break;
+                }
                 break;
         }
+        
+        txtValorTotal.setText("VALOR TOTAL DA COMPRA: R$"+novoPedido.calcularTotalCompra());
     }
     
     public void limparCampos(){
-        int escolha = cboxTipoAlimento.getSelectedIndex();
-        switch(escolha){
-            case 0://NADA SELECIONADO
-                break;
-            case 1: // frio
-                break;
-            case 2: //paozinho
-                pnlPaozinho.show(true);
-                txtValorUnitario.setText(txtValor1.getText());
-                break;
-            case 3: //doce
-                pnlPaozinho.show();
-                break;
-        }
         pnlPaozinho.hide();
         pnlDoce.hide();
         pnlFrio.hide();
@@ -1192,8 +1331,50 @@ public class frmPrincipal extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
     }
+    
+    public void attEncomendasAbertas(ArrayList<Pedido> listaPedidos, JList list){
+        Paozinho p;
+        Doce d;
+        Frio f;
+        String[] novaLista = new String[listaPedidos.size()+1];
+        for (int i = 0; i < listaPedidos.size(); i++) {
+            novaLista[i] = "Pedido Nº"+(i+1);
+            for (int j = 0; j < listaPedidos.get(i).getProdutos().size(); j++) {
+                if (listaPedidos.get(i).getProdutos().get(j) instanceof Paozinho) {
+                    p = (Paozinho) listaPedidos.get(i).getProdutos().get(j);
+                    novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+p.getSabor()+", ";
+                }else if(listaPedidos.get(i).getProdutos().get(j) instanceof Doce){
+                    d = (Doce) listaPedidos.get(i).getProdutos().get(j);
+                    novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+d.getTipo()+", ";
+                }else if(listaPedidos.get(i).getProdutos().get(j) instanceof Frio){
+                    f = (Frio) listaPedidos.get(i).getProdutos().get(j);
+                novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+f.getTipo()+", ";
+                }
+            }
+            
+            
+//            if (listaPedidos.get(i).getProdutos().get(i) instanceof Paozinho) {
+//                p = (Paozinho) listaPedidos.get(i).getProdutos().get(i);
+//                novaLista[i] = "Pedido Nº"+(i+1)+" "+listaPedidos.get(i).getProdutos().get(i).getClass().getSimpleName() + " - "+p.getSabor();
+//            }
+//            else if (listaPedidos.get(i).getProdutos().get(i) instanceof Doce) {
+//                d = (Doce) listaPedidos.get(i).getProdutos().get(i);
+//                novaLista[i] = "Pedido Nº"+(i+1)+" "+listaPedidos.get(i).getProdutos().get(i).getClass().getSimpleName() + " - "+d.getTipo();
+//            }
+//            else if (listaPedidos.get(i).getProdutos().get(i) instanceof Frio) {
+//                f = (Frio) listaPedidos.get(i).getProdutos().get(i);
+//                novaLista[i] = "Pedido Nº"+(i+1)+" "+listaPedidos.get(i).getProdutos().get(i).getClass().getSimpleName() + " - "+f.getTipo();
+//            }
+        }
+        list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = novaLista;
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnCancelarPedido;
     private javax.swing.JLabel btnEditar1;
     private javax.swing.JLabel btnEditar10;
     private javax.swing.JLabel btnEditar2;
@@ -1204,19 +1385,17 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel btnEditar7;
     private javax.swing.JLabel btnEditar8;
     private javax.swing.JLabel btnEditar9;
-    private javax.swing.JLabel btnFinalizarPedido;
-    private javax.swing.JLabel btnFinalizarPedido1;
-    private javax.swing.JLabel btnFinalizarPedido2;
-    private javax.swing.JLabel btnNovaEncomenda;
+    private javax.swing.JLabel btnFinalizarPedido3;
     private javax.swing.JLabel btnNovaEncomenda1;
     private javax.swing.JLabel btnNovaEncomenda2;
     private javax.swing.JLabel btnNovoProduto;
     private javax.swing.JLabel btnNovoProduto1;
     private javax.swing.JLabel btnNovoProduto2;
+    private javax.swing.JLabel btnViewPreco;
     private javax.swing.JComboBox<String> cboxSaborPaozinho;
     private javax.swing.JComboBox<String> cboxTipoAlimento;
     private javax.swing.JComboBox<String> cboxTipoDoce;
-    private javax.swing.JComboBox<String> cboxTipoDoce1;
+    private javax.swing.JComboBox<String> cboxTipoFrio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -1234,9 +1413,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JList<String> jList3;
+    private javax.swing.JList<String> jList4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1244,12 +1425,14 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel pnlCadastrar;
     private javax.swing.JPanel pnlControlBar;
     private javax.swing.JPanel pnlDoce;
     private javax.swing.JPanel pnlFrio;
     private javax.swing.JPanel pnlPaozinho;
     private javax.swing.JPanel pnlPrecos;
+    private javax.swing.JPanel pnlVisualizar;
     private javax.swing.JPanel pnlhide;
     private javax.swing.JTextField txtValor1;
     private javax.swing.JTextField txtValor10;
@@ -1262,8 +1445,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtValor8;
     private javax.swing.JTextField txtValor9;
     private javax.swing.JTextField txtValorTotal;
-    private javax.swing.JTextField txtValorTotal1;
-    private javax.swing.JTextField txtValorTotal2;
     private javax.swing.JTextField txtValorUnitario;
     private javax.swing.JTextField txtValorUnitario1;
     private javax.swing.JTextField txtValorUnitario2;
