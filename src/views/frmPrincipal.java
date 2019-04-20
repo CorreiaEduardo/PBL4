@@ -53,14 +53,17 @@ public class frmPrincipal extends javax.swing.JFrame {
         txtValorUnitario = new javax.swing.JTextField();
         btnNovoProduto = new javax.swing.JLabel();
         cboxSaborPaozinho = new javax.swing.JComboBox<>();
+        jSpinnerQtdPaozinho = new javax.swing.JSpinner();
         pnlDoce = new javax.swing.JPanel();
         txtValorUnitario1 = new javax.swing.JTextField();
         btnNovoProduto1 = new javax.swing.JLabel();
         cboxTipoDoce = new javax.swing.JComboBox<>();
+        jSpinner3 = new javax.swing.JSpinner();
         pnlFrio = new javax.swing.JPanel();
         txtValorUnitario2 = new javax.swing.JTextField();
         btnNovoProduto2 = new javax.swing.JLabel();
         cboxTipoFrio = new javax.swing.JComboBox<>();
+        jSpinner2 = new javax.swing.JSpinner();
         jScrollPane3 = new javax.swing.JScrollPane();
         cart = new javax.swing.JList<>();
         btnCancelarPedido = new javax.swing.JLabel();
@@ -184,6 +187,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         pnlPaozinho.setBackground(new java.awt.Color(85, 85, 85));
 
         txtValorUnitario.setEditable(false);
+        txtValorUnitario.setBackground(new java.awt.Color(75, 75, 75));
+        txtValorUnitario.setForeground(new java.awt.Color(255, 153, 0));
         txtValorUnitario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtValorUnitario.setText("VALOR UNITÁRIO");
         txtValorUnitario.setBorder(null);
@@ -207,27 +212,31 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jSpinnerQtdPaozinho.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
         javax.swing.GroupLayout pnlPaozinhoLayout = new javax.swing.GroupLayout(pnlPaozinho);
         pnlPaozinho.setLayout(pnlPaozinhoLayout);
         pnlPaozinhoLayout.setHorizontalGroup(
             pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPaozinhoLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPaozinhoLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(cboxSaborPaozinho, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlPaozinhoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(cboxSaborPaozinho, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinnerQtdPaozinho))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33))
         );
         pnlPaozinhoLayout.setVerticalGroup(
             pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPaozinhoLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(cboxSaborPaozinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlPaozinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxSaborPaozinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinnerQtdPaozinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -240,6 +249,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         pnlDoce.setBackground(new java.awt.Color(85, 85, 85));
 
         txtValorUnitario1.setEditable(false);
+        txtValorUnitario1.setBackground(new java.awt.Color(75, 75, 75));
+        txtValorUnitario1.setForeground(new java.awt.Color(255, 153, 0));
         txtValorUnitario1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtValorUnitario1.setText("VALOR UNITÁRIO");
         txtValorUnitario1.setBorder(null);
@@ -263,23 +274,30 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
         javax.swing.GroupLayout pnlDoceLayout = new javax.swing.GroupLayout(pnlDoce);
         pnlDoce.setLayout(pnlDoceLayout);
         pnlDoceLayout.setHorizontalGroup(
             pnlDoceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDoceLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(pnlDoceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtValorUnitario1)
-                    .addComponent(cboxTipoDoce, 0, 333, Short.MAX_VALUE)
-                    .addComponent(btnNovoProduto1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addGroup(pnlDoceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnNovoProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtValorUnitario1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDoceLayout.createSequentialGroup()
+                        .addComponent(cboxTipoDoce, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner3)))
+                .addGap(33, 33, 33))
         );
         pnlDoceLayout.setVerticalGroup(
             pnlDoceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDoceLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(cboxTipoDoce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlDoceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxTipoDoce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(txtValorUnitario1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -292,6 +310,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         pnlFrio.setBackground(new java.awt.Color(85, 85, 85));
 
         txtValorUnitario2.setEditable(false);
+        txtValorUnitario2.setBackground(new java.awt.Color(75, 75, 75));
+        txtValorUnitario2.setForeground(new java.awt.Color(255, 153, 0));
         txtValorUnitario2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtValorUnitario2.setText("VALOR UNITÁRIO");
         txtValorUnitario2.setBorder(null);
@@ -315,23 +335,32 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
         javax.swing.GroupLayout pnlFrioLayout = new javax.swing.GroupLayout(pnlFrio);
         pnlFrio.setLayout(pnlFrioLayout);
         pnlFrioLayout.setHorizontalGroup(
             pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFrioLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtValorUnitario2)
-                    .addComponent(cboxTipoFrio, 0, 333, Short.MAX_VALUE)
-                    .addComponent(btnNovoProduto2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addGroup(pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFrioLayout.createSequentialGroup()
+                        .addComponent(cboxTipoFrio, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSpinner2))
+                    .addComponent(txtValorUnitario2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrioLayout.createSequentialGroup()
+                        .addGap(11, 164, Short.MAX_VALUE)
+                        .addComponent(btnNovoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33))
         );
         pnlFrioLayout.setVerticalGroup(
             pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFrioLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(cboxTipoFrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxTipoFrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(txtValorUnitario2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1099,8 +1128,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         GregorianCalendar calendario = new GregorianCalendar(Locale.US);
         int validade = calendario.getTime().getMonth()+7;
         double valor = Double.parseDouble(txtValorUnitario.getText().split(" ")[1]);
-        Paozinho p = new Paozinho(valor,""+validade,"",cboxSaborPaozinho.getSelectedItem().toString());
-        novoPedido.addProduto(p);
+        for (int i = 0; i < Integer.parseInt(jSpinnerQtdPaozinho.getValue().toString()); i++) {
+            Paozinho p = new Paozinho(valor,""+validade,"",cboxSaborPaozinho.getSelectedItem().toString());
+            novoPedido.addProduto(p);
+        }
         cboxTipoAlimento.setSelectedIndex(0);
         atualizarCampos();
         limparCampos();
@@ -1578,6 +1609,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JSpinner jSpinner3;
+    private javax.swing.JSpinner jSpinnerQtdPaozinho;
     private javax.swing.JPanel pnlCadastrar;
     private javax.swing.JPanel pnlControlBar;
     private javax.swing.JPanel pnlDoce;
