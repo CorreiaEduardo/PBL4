@@ -884,7 +884,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 153, 0));
         jLabel13.setText("LISTA DE PEDIDOS:");
 
-        jLabel15.setText("att");
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Sync_32px.png"))); // NOI18N
+        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlVisualizarLayout = new javax.swing.GroupLayout(pnlVisualizar);
         pnlVisualizar.setLayout(pnlVisualizarLayout);
@@ -894,7 +900,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVisualizarLayout.createSequentialGroup()
                         .addGap(364, 364, 364)
-                        .addComponent(jLabel9))
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel15))
                     .addGroup(pnlVisualizarLayout.createSequentialGroup()
                         .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlVisualizarLayout.createSequentialGroup()
@@ -915,22 +923,21 @@ public class frmPrincipal extends javax.swing.JFrame {
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlVisualizarLayout.createSequentialGroup()
                                 .addGap(8, 8, 8)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                                .addComponent(jLabel15)))))
-                .addGap(45, 45, 45))
+                                .addComponent(jLabel11)))))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         pnlVisualizarLayout.setVerticalGroup(
             pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVisualizarLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel9)
+                .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel15))
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane6)
@@ -1295,7 +1302,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovaEncomenda1MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        jLabel2MouseClicked(evt);
+        attEncomendasAbertas(pedidos,jListPedidos);
+        attPrecosEncomendas(pedidos,jListPreços);
+        attTempoEntrega(pedidos,jListTempo);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void cartKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cartKeyPressed
@@ -1307,6 +1316,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         attCart(novoPedido.getProdutos(), cart);
         atualizarCampos();
     }//GEN-LAST:event_cartKeyPressed
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        
+    }//GEN-LAST:event_jLabel15MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -8,13 +8,15 @@ import java.util.ArrayList;
 public class Program {
     public static void main(String[] args) {
         Paozinho p = new Paozinho(5, "19/04/2019", "Muito top", "Requeijão");
-        //Frio f = new Frio(5, "19/04/2019", "Muito top");
-        System.out.println(p.calcTempoEntrega(1));
-        //System.out.println(f.calcTempoEntrega(1));
+        Frio f = new Frio(5, "19/04/2019", "Muito top","Kibe");
+        ArrayList<Produto> produtos = new ArrayList<>();
+        produtos.add(p);
+        produtos.add(f);
+        Pedido pedido1 = new Pedido(produtos);
         
-        ArrayList<Produto> pedidos = new ArrayList<>();
-        pedidos.add(p);
-        Pedido pe = new Pedido(pedidos);
+        System.out.println(pedido1.calcItensPorTipo()[0]+" frio,"+pedido1.calcItensPorTipo()[1]+" paozinho,"+pedido1.calcItensPorTipo()[2]+" doce.");
+        System.out.println(pedido1.calcTempoTotalEntrega(1));
+        System.out.println(pedido1.calcularTotalCompra());
         
         
     }
