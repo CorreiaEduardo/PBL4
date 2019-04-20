@@ -5,3 +5,6 @@ Problem-Based Learning 4 :
   
   Preview:  
 ![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/img1.png)
+![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/2.png)
+![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/3.png)
+![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/4.png)
