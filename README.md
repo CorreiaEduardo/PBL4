@@ -6,5 +6,5 @@ Problem-Based Learning 4 :
   Preview:  
 ![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/img1.png)
 ![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/2.png)
-![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/img3%20-%20Copia.png)
+![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/imagem3.png)
 ![alt text](https://raw.githubusercontent.com/CorreiaEduardo/PBL4/master/4.png)
