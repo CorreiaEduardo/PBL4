@@ -1,6 +1,7 @@
 package views;
 
 import Logics.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -11,12 +12,15 @@ import javax.swing.JOptionPane;
  * @author Eduardo C.
  */
 public class frmPrincipal extends javax.swing.JFrame {
+    private String user;
     private ArrayList<Pedido> pedidos;
     private Pedido novoPedido;
     private int xMouse;
     private int yMouse;
-    public frmPrincipal() {
+    public frmPrincipal(String user) {
         initComponents();
+        this.user = user;
+        txtUser.setText("OLÁ "+user);
         novoPedido = new Pedido();
         pedidos = new ArrayList<>();
         pnlCadastrar.hide();
@@ -56,7 +60,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnNovoProduto2 = new javax.swing.JLabel();
         cboxTipoFrio = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        cart = new javax.swing.JList<>();
         btnCancelarPedido = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtValorTotal = new javax.swing.JTextField();
@@ -104,7 +108,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jList4 = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnViewPreco = new javax.swing.JLabel();
         btnNovaEncomenda2 = new javax.swing.JLabel();
@@ -165,7 +169,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 cboxTipoAlimentoActionPerformed(evt);
             }
         });
-        pnlCadastrar.add(cboxTipoAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 256, -1));
+        pnlCadastrar.add(cboxTipoAlimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 256, -1));
 
         pnlPaozinho.setBackground(new java.awt.Color(85, 85, 85));
 
@@ -218,10 +222,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        pnlCadastrar.add(pnlPaozinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 390, 290));
+        pnlCadastrar.add(pnlPaozinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 390, 190));
 
         pnlDoce.setBackground(new java.awt.Color(85, 85, 85));
 
@@ -270,10 +274,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(txtValorUnitario1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnNovoProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        pnlCadastrar.add(pnlDoce, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 390, -1));
+        pnlCadastrar.add(pnlDoce, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 390, 190));
 
         pnlFrio.setBackground(new java.awt.Color(85, 85, 85));
 
@@ -322,14 +326,22 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addComponent(txtValorUnitario2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnNovoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        pnlCadastrar.add(pnlFrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 390, -1));
+        pnlCadastrar.add(pnlFrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 390, 190));
 
-        jScrollPane3.setViewportView(jList3);
+        cart.setBackground(new java.awt.Color(85, 85, 85));
+        cart.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        cart.setForeground(new java.awt.Color(255, 153, 0));
+        cart.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cartKeyPressed(evt);
+            }
+        });
+        jScrollPane3.setViewportView(cart);
 
-        pnlCadastrar.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 220, 130, 220));
+        pnlCadastrar.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 200, 220));
 
         btnCancelarPedido.setBackground(new java.awt.Color(255, 153, 0));
         btnCancelarPedido.setForeground(new java.awt.Color(75, 75, 75));
@@ -344,12 +356,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         pnlCadastrar.add(btnCancelarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 280, 120, 27));
 
-        jLabel8.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 153, 0));
         jLabel8.setText("CARRINHO:");
-        pnlCadastrar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, -1, -1));
+        pnlCadastrar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 190, -1, -1));
 
         txtValorTotal.setEditable(false);
+        txtValorTotal.setBackground(new java.awt.Color(85, 85, 85));
+        txtValorTotal.setForeground(new java.awt.Color(255, 153, 0));
         txtValorTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtValorTotal.setText("VALOR TOTAL DA COMPRA");
         txtValorTotal.setBorder(null);
@@ -869,13 +883,22 @@ public class frmPrincipal extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 153, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(75, 75, 75));
-        jLabel3.setText("OLÁ, USER");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 65, -1, -1));
+        txtUser.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        txtUser.setForeground(new java.awt.Color(75, 75, 75));
+        txtUser.setText("OLÁ, USER");
+        jPanel3.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 65, -1, -1));
 
-        jLabel4.setText("LOGOUTICON");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 74, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(75, 75, 75));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Export_32px_1.png"))); // NOI18N
+        jLabel4.setText("SAIR");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 80, 30));
 
         btnViewPreco.setBackground(new java.awt.Color(45, 45, 45));
         btnViewPreco.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -966,6 +989,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         int escolha = cboxTipoAlimento.getSelectedIndex();
         switch(escolha){
             case 0://NADA SELECIONADO
+                limparCampos();
                 break;
             case 1: // frio
                 limparCampos();
@@ -1010,7 +1034,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         cboxTipoAlimento.setSelectedIndex(0);
         atualizarCampos();
         limparCampos();
-        attCart(novoPedido.getProdutos(), jList3);
+        attCart(novoPedido.getProdutos(), cart);
     }//GEN-LAST:event_btnNovoProdutoMouseClicked
 
     private void btnNovoProduto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto1MouseClicked
@@ -1023,7 +1047,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         cboxTipoAlimento.setSelectedIndex(0);
         atualizarCampos();
         limparCampos();
-        attCart(novoPedido.getProdutos(), jList3);
+        attCart(novoPedido.getProdutos(), cart);
     }//GEN-LAST:event_btnNovoProduto1MouseClicked
 
     private void btnNovoProduto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto2MouseClicked
@@ -1036,7 +1060,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         cboxTipoAlimento.setSelectedIndex(0);
         atualizarCampos();
         limparCampos();
-        attCart(novoPedido.getProdutos(), jList3);
+        attCart(novoPedido.getProdutos(), cart);
     }//GEN-LAST:event_btnNovoProduto2MouseClicked
 
     private void btnEditar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar2MouseClicked
@@ -1181,16 +1205,17 @@ public class frmPrincipal extends javax.swing.JFrame {
         novoPedido = new Pedido();
         atualizarCampos();
         limparCampos();
-        attCart(novoPedido.getProdutos(), jList3);
+        attCart(novoPedido.getProdutos(), cart);
     }//GEN-LAST:event_btnCancelarPedidoMouseClicked
 
     private void btnFinalizarPedido3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedido3MouseClicked
-        pedidos.add(novoPedido);
-        btnCancelarPedidoMouseClicked(evt);
-        for (Pedido pedido : pedidos) {
-            System.out.println(pedido.calcularTotalCompra());
+        if (!(novoPedido.getProdutos().isEmpty())) {
+            pedidos.add(novoPedido);
+            btnCancelarPedidoMouseClicked(evt);
+            for (Pedido pedido : pedidos) {
+                System.out.println(pedido.calcularTotalCompra());
+            }
         }
-        
     }//GEN-LAST:event_btnFinalizarPedido3MouseClicked
 
     private void btnNovaEncomenda1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovaEncomenda1MouseClicked
@@ -1199,6 +1224,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         pnlVisualizar.show();
         attEncomendasAbertas(pedidos,jList4);
     }//GEN-LAST:event_btnNovaEncomenda1MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        jLabel2MouseClicked(evt);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void cartKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cartKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE ) {
+            if (JOptionPane.showConfirmDialog(null, "Tem certeza que quer excluir?") == 0) {
+                 novoPedido.getProdutos().remove(cart.getSelectedIndex());
+            }
+        }
+        attCart(novoPedido.getProdutos(), cart);
+        atualizarCampos();
+    }//GEN-LAST:event_cartKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1228,10 +1267,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmPrincipal tela = new frmPrincipal();
-                tela.pack();
-                tela.setLocationRelativeTo(null);
-                tela.setVisible(true);
+//                frmPrincipal tela = new frmPrincipal(user);
+//                tela.pack();
+//                tela.setLocationRelativeTo(null);
+//                tela.setVisible(true);
             }
         });
     }
@@ -1316,7 +1355,16 @@ public class frmPrincipal extends javax.swing.JFrame {
     public void attCart(ArrayList<Produto> lista, JList list){
         String[] novaLista = new String[lista.size()];
         for (int i = 0; i < lista.size(); i++) {
-            novaLista[i] = lista.get(i).getClass().getSimpleName();
+            if (lista.get(i) instanceof Paozinho) {
+                Paozinho p = (Paozinho)lista.get(i);
+                novaLista[i] = lista.get(i).getClass().getSimpleName() + " - "+p.getSabor();
+            }else if (lista.get(i) instanceof Doce) {
+                Doce d = (Doce) lista.get(i);
+                novaLista[i] = lista.get(i).getClass().getSimpleName() + " - "+d.getTipo();
+            }else if (lista.get(i) instanceof Frio) {
+                Frio f = (Frio) lista.get(i);
+                novaLista[i] = lista.get(i).getClass().getSimpleName() + " - "+f.getTipo();
+            }
         }
         list.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = novaLista;
@@ -1331,7 +1379,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         Frio f;
         String[] novaLista = new String[listaPedidos.size()+1];
         for (int i = 0; i < listaPedidos.size(); i++) {
-            novaLista[i] = "Pedido Nº"+(i+1);
+            novaLista[i] = "Pedido Nº"+(i+1)+": "+listaPedidos.get(i).calcItensPorTipo()[0]+ " frio(s), "+listaPedidos.get(i).calcItensPorTipo()[1]+ " pãozinho(s), "+listaPedidos.get(i).calcItensPorTipo()[2]+ " doce(s)  -  ";
             for (int j = 0; j < listaPedidos.get(i).getProdutos().size(); j++) {
                 if (listaPedidos.get(i).getProdutos().get(j) instanceof Paozinho) {
                     p = (Paozinho) listaPedidos.get(i).getProdutos().get(j);
@@ -1341,7 +1389,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                     novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+d.getTipo()+", ";
                 }else if(listaPedidos.get(i).getProdutos().get(j) instanceof Frio){
                     f = (Frio) listaPedidos.get(i).getProdutos().get(j);
-                novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+f.getTipo()+", ";
+                    novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+f.getTipo()+", ";
                 }
             }
         }
@@ -1371,6 +1419,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel btnNovoProduto1;
     private javax.swing.JLabel btnNovoProduto2;
     private javax.swing.JLabel btnViewPreco;
+    private javax.swing.JList<String> cart;
     private javax.swing.JComboBox<String> cboxSaborPaozinho;
     private javax.swing.JComboBox<String> cboxTipoAlimento;
     private javax.swing.JComboBox<String> cboxTipoDoce;
@@ -1386,7 +1435,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1395,7 +1443,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JList<String> jList4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1413,6 +1460,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlPrecos;
     private javax.swing.JPanel pnlVisualizar;
     private javax.swing.JPanel pnlhide;
+    private javax.swing.JLabel txtUser;
     private javax.swing.JTextField txtValor1;
     private javax.swing.JTextField txtValor10;
     private javax.swing.JTextField txtValor2;

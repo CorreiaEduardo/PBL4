@@ -254,7 +254,7 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         this.hide();
-        frmPrincipal novaTela = new frmPrincipal();
+        frmPrincipal novaTela = new frmPrincipal(txtUser.getText());
         novaTela.pack();
         novaTela.setLocationRelativeTo(null);
         novaTela.setVisible(true);

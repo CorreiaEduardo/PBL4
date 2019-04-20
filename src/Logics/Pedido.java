@@ -39,5 +39,27 @@ public class Pedido {
     public ArrayList<Produto> getProdutos(){
         return this.produtos;
     }
+    public Integer[] calcItensPorTipo(){
+        Integer[] itensPorTipo = new Integer[]{0,0,0};
+        for (Produto produto : this.produtos) {
+            if (produto instanceof Frio) {
+                itensPorTipo[0]++;
+            }else if (produto instanceof Paozinho) {
+                itensPorTipo[1]++;
+            }else if (produto instanceof Doce) {
+                itensPorTipo[2]++;
+                
+            }
+        }
+        return itensPorTipo;
+    }
+    
+    public double calcTempoTotalEntrega(int dia){
+        double tempo = 0;
+        for (Produto produto : this.produtos) {
+            tempo+=produto.calcTempoEntrega(dia);
+        }
+        return tempo;
+    }
     
 }
