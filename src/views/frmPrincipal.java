@@ -1,18 +1,11 @@
 package views;
 
 import Logics.*;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  * @author Eduardo C.
@@ -1351,20 +1344,6 @@ public class frmPrincipal extends javax.swing.JFrame {
                 novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+f.getTipo()+", ";
                 }
             }
-            
-            
-//            if (listaPedidos.get(i).getProdutos().get(i) instanceof Paozinho) {
-//                p = (Paozinho) listaPedidos.get(i).getProdutos().get(i);
-//                novaLista[i] = "Pedido Nº"+(i+1)+" "+listaPedidos.get(i).getProdutos().get(i).getClass().getSimpleName() + " - "+p.getSabor();
-//            }
-//            else if (listaPedidos.get(i).getProdutos().get(i) instanceof Doce) {
-//                d = (Doce) listaPedidos.get(i).getProdutos().get(i);
-//                novaLista[i] = "Pedido Nº"+(i+1)+" "+listaPedidos.get(i).getProdutos().get(i).getClass().getSimpleName() + " - "+d.getTipo();
-//            }
-//            else if (listaPedidos.get(i).getProdutos().get(i) instanceof Frio) {
-//                f = (Frio) listaPedidos.get(i).getProdutos().get(i);
-//                novaLista[i] = "Pedido Nº"+(i+1)+" "+listaPedidos.get(i).getProdutos().get(i).getClass().getSimpleName() + " - "+f.getTipo();
-//            }
         }
         list.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = novaLista;
