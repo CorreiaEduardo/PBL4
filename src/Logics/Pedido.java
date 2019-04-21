@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * @author Eduardo C.
  */
 public class Pedido {
+    private long horarioCompra;  
     public static int emAberto = 0;
     private ArrayList<Produto> produtos;
     private double totalCompra;
@@ -15,6 +16,15 @@ public class Pedido {
         emAberto++;
         this.totalCompra = 0;
     }
+
+    public long getHorarioCompra() {
+        return horarioCompra;
+    }
+
+    public void setHorarioCompra(long horarioCompra) {
+        this.horarioCompra = horarioCompra;
+    }
+    
     public Pedido(ArrayList<Produto> produtos){
         emAberto++;
         this.produtos = produtos;

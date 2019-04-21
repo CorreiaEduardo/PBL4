@@ -22,7 +22,7 @@ public class Frio extends Produto{
             case 1:// DOMINGO.
                 return super.calcTempoEntrega(diaSemana)*1.10;
         }
-        return 2;
+        return super.calcTempoEntrega(diaSemana);
     }
 
     public String getTipo() {

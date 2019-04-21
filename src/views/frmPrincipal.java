@@ -3,8 +3,10 @@ package views;
 import Logics.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
@@ -20,7 +22,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public frmPrincipal(String user) {
         initComponents();
         this.user = user;
-        txtUser.setText("OLÁ "+user);
+        txtUser.setText("OLÁ "+user.toUpperCase());
         novoPedido = new Pedido();
         pedidos = new ArrayList<>();
         pnlCadastrar.hide();
@@ -106,7 +108,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         pnlVisualizar = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        jListPedidos = new javax.swing.JList<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jListPreços = new javax.swing.JList<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jListTempo = new javax.swing.JList<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         txtUser = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -846,34 +856,87 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 153, 0));
         jLabel9.setText("ENCOMENDAS ABERTAS");
 
-        jList4.setBackground(new java.awt.Color(85, 85, 85));
-        jList4.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
-        jList4.setForeground(new java.awt.Color(255, 153, 0));
-        jList4.setRequestFocusEnabled(false);
-        jScrollPane4.setViewportView(jList4);
+        jListPedidos.setBackground(new java.awt.Color(85, 85, 85));
+        jListPedidos.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        jListPedidos.setForeground(new java.awt.Color(255, 153, 0));
+        jListPedidos.setRequestFocusEnabled(false);
+        jScrollPane4.setViewportView(jListPedidos);
+
+        jListPreços.setBackground(new java.awt.Color(85, 85, 85));
+        jListPreços.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        jListPreços.setForeground(new java.awt.Color(255, 153, 0));
+        jScrollPane5.setViewportView(jListPreços);
+
+        jListTempo.setBackground(new java.awt.Color(85, 85, 85));
+        jListTempo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        jListTempo.setForeground(new java.awt.Color(255, 153, 0));
+        jScrollPane6.setViewportView(jListTempo);
+
+        jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel3.setText("VALOR TOTAL:");
+
+        jLabel11.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel11.setText("ENTREGA PREVISTA:");
+
+        jLabel13.setFont(new java.awt.Font("Leelawadee UI", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel13.setText("LISTA DE PEDIDOS:");
+
+        jLabel15.setText("att");
 
         javax.swing.GroupLayout pnlVisualizarLayout = new javax.swing.GroupLayout(pnlVisualizar);
         pnlVisualizar.setLayout(pnlVisualizarLayout);
         pnlVisualizarLayout.setHorizontalGroup(
             pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVisualizarLayout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
                 .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVisualizarLayout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVisualizarLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(318, 318, 318))))
+                    .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                        .addGap(364, 364, 364)
+                        .addComponent(jLabel9))
+                    .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                        .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                                .addGap(108, 108, 108)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVisualizarLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel13)
+                                .addGap(186, 186, 186)))
+                        .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVisualizarLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(10, 10, 10)))
+                        .addGap(47, 47, 47)
+                        .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                                .addComponent(jLabel15)))))
+                .addGap(45, 45, 45))
         );
         pnlVisualizarLayout.setVerticalGroup(
             pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVisualizarLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6)
+                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
         );
 
         jPanel2.add(pnlVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 700));
@@ -1210,6 +1273,10 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnFinalizarPedido3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedido3MouseClicked
         if (!(novoPedido.getProdutos().isEmpty())) {
+            GregorianCalendar c = new GregorianCalendar(Locale.US);
+            long hora = (c.getTime().getHours()*3600000)+(c.getTime().getMinutes()*60000)+(c.getTime().getSeconds()*1000);
+            novoPedido.setHorarioCompra(hora);
+            System.out.println(novoPedido.getHorarioCompra());
             pedidos.add(novoPedido);
             btnCancelarPedidoMouseClicked(evt);
             for (Pedido pedido : pedidos) {
@@ -1222,7 +1289,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         pnlCadastrar.hide();
         pnlPrecos.hide();
         pnlVisualizar.show();
-        attEncomendasAbertas(pedidos,jList4);
+        attEncomendasAbertas(pedidos,jListPedidos);
+        attPrecosEncomendas(pedidos,jListPreços);
+        attTempoEntrega(pedidos,jListTempo);
     }//GEN-LAST:event_btnNovaEncomenda1MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -1374,25 +1443,61 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     
     public void attEncomendasAbertas(ArrayList<Pedido> listaPedidos, JList list){
-        Paozinho p;
-        Doce d;
-        Frio f;
         String[] novaLista = new String[listaPedidos.size()+1];
         for (int i = 0; i < listaPedidos.size(); i++) {
             novaLista[i] = "Pedido Nº"+(i+1)+": "+listaPedidos.get(i).calcItensPorTipo()[0]+ " frio(s), "+listaPedidos.get(i).calcItensPorTipo()[1]+ " pãozinho(s), "+listaPedidos.get(i).calcItensPorTipo()[2]+ " doce(s)  -  ";
             for (int j = 0; j < listaPedidos.get(i).getProdutos().size(); j++) {
                 if (listaPedidos.get(i).getProdutos().get(j) instanceof Paozinho) {
-                    p = (Paozinho) listaPedidos.get(i).getProdutos().get(j);
+                    Paozinho p = (Paozinho) listaPedidos.get(i).getProdutos().get(j);
                     novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+p.getSabor()+", ";
                 }else if(listaPedidos.get(i).getProdutos().get(j) instanceof Doce){
-                    d = (Doce) listaPedidos.get(i).getProdutos().get(j);
+                    Doce d = (Doce) listaPedidos.get(i).getProdutos().get(j);
                     novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+d.getTipo()+", ";
                 }else if(listaPedidos.get(i).getProdutos().get(j) instanceof Frio){
-                    f = (Frio) listaPedidos.get(i).getProdutos().get(j);
+                    Frio f = (Frio) listaPedidos.get(i).getProdutos().get(j);
                     novaLista[i] += " "+listaPedidos.get(i).getProdutos().get(j).getClass().getSimpleName() + " - "+f.getTipo()+", ";
                 }
             }
         }
+        list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = novaLista;
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+    }
+    
+    public void attPrecosEncomendas(ArrayList<Pedido> listaPedidos, JList list){
+        String[] novaLista = new String[listaPedidos.size()];
+        
+        for (int i = 0; i < listaPedidos.size(); i++) {
+            novaLista[i] = "R$ " + listaPedidos.get(i).calcularTotalCompra();
+        }
+        
+        list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = novaLista;
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+    }
+    public void attTempoEntrega(ArrayList<Pedido> listaPedidos, JList list){
+        String[] novaLista = new String[listaPedidos.size()];
+        GregorianCalendar c = new GregorianCalendar(Locale.US);
+        System.out.println("DIA:"+(c.getTime().getDay()+1));
+        for (int i = 0; i < listaPedidos.size(); i++) {
+            long tempoDeEntrega = (new Double(listaPedidos.get(i).calcTempoTotalEntrega(c.getTime().getDay()+1))).longValue();
+            System.out.println("TEMPO DE ENTREGA:"+listaPedidos.get(i).calcTempoTotalEntrega(c.getTime().getDay()+1));
+            System.out.println("tempo entrega: "+listaPedidos.get(i).calcTempoTotalEntrega(c.getTime().getDay()+1)*60000);
+            tempoDeEntrega *= 60000;
+            
+            long millis = listaPedidos.get(i).getHorarioCompra()+tempoDeEntrega;
+            String hms = String.format("%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1)
+            );
+            novaLista[i] = hms;
+        }
+        
         list.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = novaLista;
             public int getSize() { return strings.length; }
@@ -1426,8 +1531,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxTipoFrio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1435,6 +1543,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1443,7 +1552,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList4;
+    private javax.swing.JList<String> jListPedidos;
+    private javax.swing.JList<String> jListPreços;
+    private javax.swing.JList<String> jListTempo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1452,6 +1563,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPanel pnlCadastrar;
     private javax.swing.JPanel pnlControlBar;
     private javax.swing.JPanel pnlDoce;

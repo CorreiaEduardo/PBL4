@@ -22,7 +22,7 @@ public class Doce extends Produto{
             case 1: case 7:// FINAL DE SEMANA.
                 return super.calcTempoEntrega(diaSemana)*1.2;
         }
-        return 2;
+        return super.calcTempoEntrega(diaSemana);
     }
 
     public String getTipo() {
