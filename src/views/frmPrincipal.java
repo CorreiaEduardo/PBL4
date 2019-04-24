@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
@@ -20,6 +21,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private int yMouse;
     public frmPrincipal(String user) {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("icon.png")).getImage());
         this.user = user;
         txtUser.setText("OLÁ "+user.toUpperCase());
         novoPedido = new Pedido();
@@ -127,6 +129,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnVisualizarEncomendas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GERENCIAMENTO DE PADARIA");
         setUndecorated(true);
         setResizable(false);
 
@@ -147,6 +150,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minbtn.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         pnlControlBar.add(jLabel1);
         jLabel1.setBounds(1310, 3, 26, 26);
 
@@ -1348,9 +1356,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVisualizarEncomendasMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        attEncomendasAbertas(pedidos,jListPedidos);
-        attPrecosEncomendas(pedidos,jListPreços);
-        attTempoEntrega(pedidos,jListTempo);
+        jLabel2MouseClicked(evt);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void cartKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cartKeyPressed
@@ -1395,6 +1401,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
         jLabel15MouseClicked(evt);
     }//GEN-LAST:event_jListPedidosMousePressed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        this.setState(this.ICONIFIED);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

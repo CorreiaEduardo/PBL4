@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  * @author Eduardo C.
@@ -10,6 +11,7 @@ public class frmLogin extends javax.swing.JFrame {
     private int yMouse;
     public frmLogin() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("funcionario.png")).getImage());
     }
     
     @SuppressWarnings("unchecked")
@@ -30,6 +32,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LOGIN - GERENCIAMENTO PADARIA");
         setUndecorated(true);
         setResizable(false);
 
@@ -50,6 +53,11 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minbtn.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         pnlControlBar.add(jLabel1);
         jLabel1.setBounds(740, 3, 26, 26);
 
@@ -126,15 +134,11 @@ public class frmLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPass))
-                        .addGap(58, 58, 58))))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPass)))
+                .addGap(58, 58, 58))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(201, Short.MAX_VALUE)
                 .addComponent(lblLOGIN)
@@ -259,6 +263,10 @@ public class frmLogin extends javax.swing.JFrame {
         novaTela.setLocationRelativeTo(null);
         novaTela.setVisible(true);
     }//GEN-LAST:event_btnLoginMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        this.setState(this.ICONIFIED);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
