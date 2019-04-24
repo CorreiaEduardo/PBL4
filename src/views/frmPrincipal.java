@@ -122,9 +122,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         txtUser = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        btnViewPreco = new javax.swing.JLabel();
+        btnVisualizarTBL = new javax.swing.JLabel();
         btnNovaEncomenda2 = new javax.swing.JLabel();
-        btnNovaEncomenda1 = new javax.swing.JLabel();
+        btnVisualizarEncomendas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -897,6 +897,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         jListPedidos.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jListPedidos.setForeground(new java.awt.Color(255, 153, 0));
         jListPedidos.setRequestFocusEnabled(false);
+        jListPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jListPedidosMousePressed(evt);
+            }
+        });
         jScrollPane4.setViewportView(jListPedidos);
 
         jListPreços.setBackground(new java.awt.Color(85, 85, 85));
@@ -1007,19 +1012,19 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 80, 30));
 
-        btnViewPreco.setBackground(new java.awt.Color(45, 45, 45));
-        btnViewPreco.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        btnViewPreco.setForeground(new java.awt.Color(255, 153, 0));
-        btnViewPreco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnViewPreco.setText("VISUALIZAR TBL DE PREÇOS");
-        btnViewPreco.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnViewPreco.setOpaque(true);
-        btnViewPreco.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnVisualizarTBL.setBackground(new java.awt.Color(45, 45, 45));
+        btnVisualizarTBL.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        btnVisualizarTBL.setForeground(new java.awt.Color(255, 153, 0));
+        btnVisualizarTBL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnVisualizarTBL.setText("VISUALIZAR TBL DE PREÇOS");
+        btnVisualizarTBL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVisualizarTBL.setOpaque(true);
+        btnVisualizarTBL.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnViewPrecoMouseClicked(evt);
+                btnVisualizarTBLMouseClicked(evt);
             }
         });
-        jPanel3.add(btnViewPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 360, 50));
+        jPanel3.add(btnVisualizarTBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 360, 50));
 
         btnNovaEncomenda2.setBackground(new java.awt.Color(45, 45, 45));
         btnNovaEncomenda2.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -1035,19 +1040,19 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         jPanel3.add(btnNovaEncomenda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 145, 360, 50));
 
-        btnNovaEncomenda1.setBackground(new java.awt.Color(45, 45, 45));
-        btnNovaEncomenda1.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        btnNovaEncomenda1.setForeground(new java.awt.Color(255, 153, 0));
-        btnNovaEncomenda1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnNovaEncomenda1.setText("VISUALIZAR ENCOMENDAS");
-        btnNovaEncomenda1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNovaEncomenda1.setOpaque(true);
-        btnNovaEncomenda1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnVisualizarEncomendas.setBackground(new java.awt.Color(45, 45, 45));
+        btnVisualizarEncomendas.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        btnVisualizarEncomendas.setForeground(new java.awt.Color(255, 153, 0));
+        btnVisualizarEncomendas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnVisualizarEncomendas.setText("VISUALIZAR ENCOMENDAS");
+        btnVisualizarEncomendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVisualizarEncomendas.setOpaque(true);
+        btnVisualizarEncomendas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNovaEncomenda1MouseClicked(evt);
+                btnVisualizarEncomendasMouseClicked(evt);
             }
         });
-        jPanel3.add(btnNovaEncomenda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 360, 50));
+        jPanel3.add(btnVisualizarEncomendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 360, 50));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 730));
 
@@ -1113,12 +1118,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxTipoAlimentoActionPerformed
 
-    private void btnViewPrecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewPrecoMouseClicked
+    private void btnVisualizarTBLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarTBLMouseClicked
         pnlCadastrar.hide();
         pnlPrecos.show();
         pnlVisualizar.hide();
         atualizarCampos();
-    }//GEN-LAST:event_btnViewPrecoMouseClicked
+    }//GEN-LAST:event_btnVisualizarTBLMouseClicked
 
     private void btnEditar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar1MouseClicked
         // EDITAR PAOZINHO:
@@ -1333,14 +1338,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnFinalizarPedido3MouseClicked
 
-    private void btnNovaEncomenda1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovaEncomenda1MouseClicked
+    private void btnVisualizarEncomendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarEncomendasMouseClicked
         pnlCadastrar.hide();
         pnlPrecos.hide();
         pnlVisualizar.show();
         attEncomendasAbertas(pedidos,jListPedidos);
         attPrecosEncomendas(pedidos,jListPreços);
         attTempoEntrega(pedidos,jListTempo);
-    }//GEN-LAST:event_btnNovaEncomenda1MouseClicked
+    }//GEN-LAST:event_btnVisualizarEncomendasMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         attEncomendasAbertas(pedidos,jListPedidos);
@@ -1359,7 +1364,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cartKeyPressed
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        
+        attEncomendasAbertas(pedidos, jListPedidos);
+        attPrecosEncomendas(pedidos, jListPreços);
+        attTempoEntrega(pedidos, jListTempo);
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void btnNovoProdutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProdutoMouseEntered
@@ -1373,6 +1380,18 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnNovoProduto2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto2MouseEntered
         jSpinnerQtdFrio.requestFocus();
     }//GEN-LAST:event_btnNovoProduto2MouseEntered
+
+    private void jListPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPedidosMousePressed
+        if (evt.getClickCount()==2) {
+            if (!(jListPedidos.getSelectedValue().isEmpty())) {
+                Object[] opt = {"Fechar pedido"};
+                if (JOptionPane.showOptionDialog(null, "Escolha uma opção", "Mais detalhes", 0, 2, null, opt, opt[0]) == 0) {
+                    pedidos.remove(jListPedidos.getSelectedIndex());
+                }
+            }
+        }
+        jLabel15MouseClicked(evt);
+    }//GEN-LAST:event_jListPedidosMousePressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1584,12 +1603,12 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel btnEditar8;
     private javax.swing.JLabel btnEditar9;
     private javax.swing.JLabel btnFinalizarPedido3;
-    private javax.swing.JLabel btnNovaEncomenda1;
     private javax.swing.JLabel btnNovaEncomenda2;
     private javax.swing.JLabel btnNovoProduto;
     private javax.swing.JLabel btnNovoProduto1;
     private javax.swing.JLabel btnNovoProduto2;
-    private javax.swing.JLabel btnViewPreco;
+    private javax.swing.JLabel btnVisualizarEncomendas;
+    private javax.swing.JLabel btnVisualizarTBL;
     private javax.swing.JList<String> cart;
     private javax.swing.JComboBox<String> cboxSaborPaozinho;
     private javax.swing.JComboBox<String> cboxTipoAlimento;
