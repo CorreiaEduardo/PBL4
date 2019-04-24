@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class Program {
     public static void main(String[] args) {
-        Paozinho p = new Paozinho(5, "19/04/2019", "Muito top", "Requeijão");
-        Frio f = new Frio(5, "19/04/2019", "Muito top","Kibe");
+        Paozinho p = new Paozinho(5, "Muito top", "Requeijão");
+        Frio f = new Frio(5, "Muito top","Kibe");
         ArrayList<Produto> produtos = new ArrayList<>();
         produtos.add(p);
         produtos.add(f);

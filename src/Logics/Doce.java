@@ -9,7 +9,8 @@ public class Doce extends Produto{
     public Doce() {
     }
     
-    public Doce(double preco,String validade,String especificacao,String tipo) {
+    public Doce(double preco,String especificacao,String tipo) {
+        super();
         this.preco = preco;
         this.validade = validade;
         this.especificacao = especificacao;

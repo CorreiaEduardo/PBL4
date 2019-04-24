@@ -3,7 +3,6 @@ package views;
 import Logics.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -58,12 +57,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         txtValorUnitario1 = new javax.swing.JTextField();
         btnNovoProduto1 = new javax.swing.JLabel();
         cboxTipoDoce = new javax.swing.JComboBox<>();
-        jSpinner3 = new javax.swing.JSpinner();
+        jSpinnerQtdDoce = new javax.swing.JSpinner();
         pnlFrio = new javax.swing.JPanel();
         txtValorUnitario2 = new javax.swing.JTextField();
         btnNovoProduto2 = new javax.swing.JLabel();
         cboxTipoFrio = new javax.swing.JComboBox<>();
-        jSpinner2 = new javax.swing.JSpinner();
+        jSpinnerQtdFrio = new javax.swing.JSpinner();
         jScrollPane3 = new javax.swing.JScrollPane();
         cart = new javax.swing.JList<>();
         btnCancelarPedido = new javax.swing.JLabel();
@@ -203,6 +202,9 @@ public class frmPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNovoProdutoMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNovoProdutoMouseEntered(evt);
+            }
         });
 
         cboxSaborPaozinho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "REQUEIJÃO", "CHEDDAR", "PATÊ DE ATUM" }));
@@ -265,6 +267,9 @@ public class frmPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNovoProduto1MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNovoProduto1MouseEntered(evt);
+            }
         });
 
         cboxTipoDoce.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "FINO", "DE FESTA", "GOURMET", "ORNAMENTAL" }));
@@ -274,7 +279,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinnerQtdDoce.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         javax.swing.GroupLayout pnlDoceLayout = new javax.swing.GroupLayout(pnlDoce);
         pnlDoce.setLayout(pnlDoceLayout);
@@ -288,7 +293,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDoceLayout.createSequentialGroup()
                         .addComponent(cboxTipoDoce, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner3)))
+                        .addComponent(jSpinnerQtdDoce)))
                 .addGap(33, 33, 33))
         );
         pnlDoceLayout.setVerticalGroup(
@@ -297,7 +302,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(pnlDoceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboxTipoDoce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinnerQtdDoce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(txtValorUnitario1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -326,16 +331,19 @@ public class frmPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnNovoProduto2MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNovoProduto2MouseEntered(evt);
+            }
         });
 
-        cboxTipoFrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "COXINHA", "KIBE", "PASTELZINHO" }));
+        cboxTipoFrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "QUEIJO", "MORTADELA", "SALAME" }));
         cboxTipoFrio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxTipoFrioActionPerformed(evt);
             }
         });
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinnerQtdFrio.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         javax.swing.GroupLayout pnlFrioLayout = new javax.swing.GroupLayout(pnlFrio);
         pnlFrio.setLayout(pnlFrioLayout);
@@ -347,7 +355,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                     .addGroup(pnlFrioLayout.createSequentialGroup()
                         .addComponent(cboxTipoFrio, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jSpinner2))
+                        .addComponent(jSpinnerQtdFrio))
                     .addComponent(txtValorUnitario2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrioLayout.createSequentialGroup()
                         .addGap(11, 164, Short.MAX_VALUE)
@@ -360,7 +368,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(pnlFrioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboxTipoFrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinnerQtdFrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(txtValorUnitario2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -453,7 +461,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel18.setText("COXINHA");
+        jLabel18.setText("QUEIJO");
 
         txtValor5.setEditable(false);
         txtValor5.setBackground(new java.awt.Color(55, 55, 55));
@@ -625,7 +633,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jLabel23.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel23.setText("KIBE");
+        jLabel23.setText("MORTADELA");
 
         txtValor9.setEditable(false);
         txtValor9.setBackground(new java.awt.Color(55, 55, 55));
@@ -649,7 +657,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jLabel25.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel25.setText("PASTELZINHO");
+        jLabel25.setText("SALAME");
 
         txtValor10.setEditable(false);
         txtValor10.setBackground(new java.awt.Color(55, 55, 55));
@@ -1126,10 +1134,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnNovoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProdutoMouseClicked
         int indexProduto = cboxTipoAlimento.getSelectedIndex();
         GregorianCalendar calendario = new GregorianCalendar(Locale.US);
-        int validade = calendario.getTime().getMonth()+7;
         double valor = Double.parseDouble(txtValorUnitario.getText().split(" ")[1]);
         for (int i = 0; i < Integer.parseInt(jSpinnerQtdPaozinho.getValue().toString()); i++) {
-            Paozinho p = new Paozinho(valor,""+validade,"",cboxSaborPaozinho.getSelectedItem().toString());
+            Paozinho p = new Paozinho(valor,"",cboxSaborPaozinho.getSelectedItem().toString());
             novoPedido.addProduto(p);
         }
         cboxTipoAlimento.setSelectedIndex(0);
@@ -1141,10 +1148,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnNovoProduto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto1MouseClicked
         int indexProduto = cboxTipoAlimento.getSelectedIndex();
         GregorianCalendar calendario = new GregorianCalendar(Locale.US);
-        int validade = calendario.getTime().getMonth()+7;
         double valor = Double.parseDouble(txtValorUnitario1.getText().split(" ")[1]);
-        Doce d = new Doce(valor,""+validade,"",cboxTipoDoce.getSelectedItem().toString());
+        Doce d = new Doce(valor,"",cboxTipoDoce.getSelectedItem().toString());
+        for (int i = 0; i < Integer.parseInt(jSpinnerQtdDoce.getValue().toString()); i++) {
         novoPedido.addProduto(d);
+        }
         cboxTipoAlimento.setSelectedIndex(0);
         atualizarCampos();
         limparCampos();
@@ -1154,16 +1162,18 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnNovoProduto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto2MouseClicked
         int indexProduto = cboxTipoFrio.getSelectedIndex();
         GregorianCalendar calendario = new GregorianCalendar(Locale.US);
-        int validade = calendario.getTime().getMonth()+7;
         double valor = Double.parseDouble(txtValorUnitario2.getText().split(" ")[1]);
-        Frio f = new Frio(valor,""+validade,"",cboxTipoFrio.getSelectedItem().toString());
+        for (int i = 0; i < Integer.parseInt(jSpinnerQtdFrio.getValue().toString()); i++) {
+        Frio f = new Frio(valor,"",cboxTipoFrio.getSelectedItem().toString());
         novoPedido.addProduto(f);
+        }
         cboxTipoAlimento.setSelectedIndex(0);
         atualizarCampos();
         limparCampos();
         attCart(novoPedido.getProdutos(), cart);
     }//GEN-LAST:event_btnNovoProduto2MouseClicked
 
+    // <editor-fold defaultstate="collapsed" desc="EDIT BUTTONS">
     private void btnEditar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar2MouseClicked
         try {
             double novoValor = Double.parseDouble(JOptionPane.showInputDialog(null, "Insira o novo valor", "Editando valor", 3));
@@ -1244,7 +1254,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Insira um valor válido!");
         }
     }//GEN-LAST:event_btnEditar10MouseClicked
-
+// <\editor-fold>
     private void cboxSaborPaozinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxSaborPaozinhoActionPerformed
         int saborPaozinho = cboxSaborPaozinho.getSelectedIndex();
         switch(saborPaozinho){
@@ -1351,6 +1361,18 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         
     }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void btnNovoProdutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProdutoMouseEntered
+        jSpinnerQtdPaozinho.requestFocus();
+    }//GEN-LAST:event_btnNovoProdutoMouseEntered
+
+    private void btnNovoProduto1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto1MouseEntered
+        jSpinnerQtdDoce.requestFocus();
+    }//GEN-LAST:event_btnNovoProduto1MouseEntered
+
+    private void btnNovoProduto2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoProduto2MouseEntered
+        jSpinnerQtdFrio.requestFocus();
+    }//GEN-LAST:event_btnNovoProduto2MouseEntered
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1609,8 +1631,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
+    private javax.swing.JSpinner jSpinnerQtdDoce;
+    private javax.swing.JSpinner jSpinnerQtdFrio;
     private javax.swing.JSpinner jSpinnerQtdPaozinho;
     private javax.swing.JPanel pnlCadastrar;
     private javax.swing.JPanel pnlControlBar;

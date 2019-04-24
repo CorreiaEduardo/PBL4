@@ -8,7 +8,8 @@ public class Frio extends Produto{
     public Frio() {
     }
     
-    public Frio(double preco,String validade,String especificacao, String tipo) {
+    public Frio(double preco,String especificacao, String tipo) {
+        super();
         this.preco = preco;
         this.validade = validade;
         this.especificacao = especificacao;

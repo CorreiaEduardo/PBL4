@@ -10,7 +10,8 @@ public class Paozinho extends Produto{
         
     }
 
-    public Paozinho(double preco,String validade,String especificacao,String sabor) {
+    public Paozinho(double preco,String especificacao,String sabor) {
+        super();
         this.preco = preco;
         this.validade = validade;
         this.especificacao = especificacao;
