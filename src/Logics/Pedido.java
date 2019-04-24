@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Eduardo C.
@@ -74,12 +75,27 @@ public class Pedido {
         return tempo;
     }
     
-    public long getTempoEstimado(){
+    public String getTempoEstimado(){
         GregorianCalendar c = new GregorianCalendar(Locale.US);
         long tempoDeEntrega = (new Double(this.calcTempoTotalEntrega(c.getTime().getDay()+1))).longValue();
         tempoDeEntrega *= 60000;
         long millis = this.getHorarioCompra()+tempoDeEntrega;
-        return millis;
+        long hour;
+        if (TimeUnit.MILLISECONDS.toHours(millis) > 24) {
+            hour = TimeUnit.MILLISECONDS.toHours(millis) - 24;
+        }else{
+            hour = TimeUnit.MILLISECONDS.toHours(millis);
+        }
+        
+        String hms = String.format("%02d:%02d:%02d",
+                hour,
+                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1)
+            );
+        
+        
+        
+        return hms;
     }
     
 }

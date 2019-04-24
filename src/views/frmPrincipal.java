@@ -1404,8 +1404,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "O pedido total será entregue em "+pedidos.get(jListPedidos.getSelectedIndex()).calcTempoTotalEntrega(new GregorianCalendar(Locale.US).getTime().getDay()+1) + " minutos");
                 }
             }
+            jLabel15MouseClicked(evt);
         }
-        jLabel15MouseClicked(evt);
+        
     }//GEN-LAST:event_jListPedidosMousePressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -1604,13 +1605,13 @@ public class frmPrincipal extends javax.swing.JFrame {
 //            tempoDeEntrega *= 60000;
 //            long millis = listaPedidos.get(i).getHorarioCompra()+tempoDeEntrega;
 
-            long millis = listaPedidos.get(i).getTempoEstimado();
-            String hms = String.format("%02d:%02d:%02d",
-                TimeUnit.MILLISECONDS.toHours(millis),
-                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
-                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1)
-            );
-            novaLista[i] = hms;
+//            long millis = listaPedidos.get(i).getTempoEstimado();
+//            String hms = String.format("%02d:%02d:%02d",
+//                TimeUnit.MILLISECONDS.toHours(millis),
+//                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+//                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1)
+//            );
+            novaLista[i] = listaPedidos.get(i).getTempoEstimado();
         }
         
         list.setModel(new javax.swing.AbstractListModel<String>() {
