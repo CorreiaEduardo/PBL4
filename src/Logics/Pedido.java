@@ -2,6 +2,8 @@ package Logics;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * @author Eduardo C.
@@ -70,6 +72,14 @@ public class Pedido {
             tempo+=produto.calcTempoEntrega(dia);
         }
         return tempo;
+    }
+    
+    public long getTempoEstimado(){
+        GregorianCalendar c = new GregorianCalendar(Locale.US);
+        long tempoDeEntrega = (new Double(this.calcTempoTotalEntrega(c.getTime().getDay()+1))).longValue();
+        tempoDeEntrega *= 60000;
+        long millis = this.getHorarioCompra()+tempoDeEntrega;
+        return millis;
     }
     
 }

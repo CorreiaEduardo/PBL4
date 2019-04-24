@@ -1384,9 +1384,12 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void jListPedidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPedidosMousePressed
         if (evt.getClickCount()==2) {
             if (!(jListPedidos.getSelectedValue().isEmpty())) {
-                Object[] opt = {"Fechar pedido"};
-                if (JOptionPane.showOptionDialog(null, "Escolha uma opção", "Mais detalhes", 0, 2, null, opt, opt[0]) == 0) {
+                Object[] opt = {"Fechar pedido","Tempo de entrega"};
+                int escolha = JOptionPane.showOptionDialog(null, "Escolha uma opção", "Mais detalhes", 0, 2, null, opt, opt[0]);
+                if (escolha == 0) {
                     pedidos.remove(jListPedidos.getSelectedIndex());
+                }else if(escolha == 1){
+                    JOptionPane.showMessageDialog(null, "O pedido total será entregue em "+pedidos.get(jListPedidos.getSelectedIndex()).calcTempoTotalEntrega(new GregorianCalendar(Locale.US).getTime().getDay()+1) + " minutos");
                 }
             }
         }
@@ -1569,12 +1572,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         GregorianCalendar c = new GregorianCalendar(Locale.US);
         System.out.println("DIA:"+(c.getTime().getDay()+1));
         for (int i = 0; i < listaPedidos.size(); i++) {
-            long tempoDeEntrega = (new Double(listaPedidos.get(i).calcTempoTotalEntrega(c.getTime().getDay()+1))).longValue();
-            System.out.println("TEMPO DE ENTREGA:"+listaPedidos.get(i).calcTempoTotalEntrega(c.getTime().getDay()+1));
-            System.out.println("tempo entrega: "+listaPedidos.get(i).calcTempoTotalEntrega(c.getTime().getDay()+1)*60000);
-            tempoDeEntrega *= 60000;
             
-            long millis = listaPedidos.get(i).getHorarioCompra()+tempoDeEntrega;
+//            long tempoDeEntrega = (new Double(listaPedidos.get(i).calcTempoTotalEntrega(c.getTime().getDay()+1))).longValue();
+//            tempoDeEntrega *= 60000;
+//            long millis = listaPedidos.get(i).getHorarioCompra()+tempoDeEntrega;
+
+            long millis = listaPedidos.get(i).getTempoEstimado();
             String hms = String.format("%02d:%02d:%02d",
                 TimeUnit.MILLISECONDS.toHours(millis),
                 TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
