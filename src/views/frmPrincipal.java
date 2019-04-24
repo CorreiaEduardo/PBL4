@@ -19,6 +19,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private Pedido novoPedido;
     private int xMouse;
     private int yMouse;
+    TabelaPrecos tbl;
     public frmPrincipal(String user) {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("icon.png")).getImage());
@@ -32,9 +33,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         pnlFrio.hide();
         pnlPrecos.hide();
         pnlhide.hide();
-        //TabelaPrecos tbl = new TabelaPrecos();
-        //attTable(tbl.getNomes(), jList1);
-        //attTable(tbl.getPrecos(), jList2);
+        tbl = new TabelaPrecos();
+        attTable(tbl.getNomes(), jList1);
+        attTable(tbl.getPrecos(), jList2);
         
     }
     
@@ -831,6 +832,11 @@ public class frmPrincipal extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         jList1.setRequestFocusEnabled(false);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jList1MousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jList2.setBackground(new java.awt.Color(85, 85, 85));
@@ -1405,6 +1411,17 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         this.setState(this.ICONIFIED);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jList1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MousePressed
+        if (evt.getClickCount()==2) {
+            if (!(jList1.getSelectedValue().isEmpty())) {
+                String novoPreco = JOptionPane.showInputDialog("Insira o novo valor.");
+                tbl.setPreco(jList1.getSelectedIndex(), novoPreco);
+            }
+        }
+        attTable(tbl.getNomes(), jList1);
+        attTable(tbl.getPrecos(), jList2);
+    }//GEN-LAST:event_jList1MousePressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

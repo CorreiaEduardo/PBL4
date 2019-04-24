@@ -25,11 +25,11 @@ public class TabelaPrecos {
         precosProdutos.add("3.70");
         nomesProdutos.add("DOCE ORNAMENTAL");
         precosProdutos.add("3.70");
-        nomesProdutos.add("COXINHA");
+        nomesProdutos.add("QUEIJO");
         precosProdutos.add("3.70");
-        nomesProdutos.add("KIBE");
+        nomesProdutos.add("MORTADELA");
         precosProdutos.add("3.70");
-        nomesProdutos.add("PASTELZINHO");
+        nomesProdutos.add("SALAME");
         precosProdutos.add("3.70");
     }
     public String[] getNomes(){
@@ -45,5 +45,8 @@ public class TabelaPrecos {
             lista[i] = precosProdutos.get(i);
         }
         return lista;
+    }
+    public void setPreco(int index, String novoPreco){
+        precosProdutos.set(index, novoPreco);
     }
 }
